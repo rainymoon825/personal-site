@@ -1,0 +1,15 @@
+.center-text {
+    text-align: center;
+   
+}
+
+.contact {
+    justify-content: center;
+}
+
+.contact span {
+    margin-left: 10px;
+    margin-right: 40px;
+}
+
+
