@@ -1,16 +1,25 @@
 import { useState } from "react";
 
-interface Props {
+interface DropDownItem {
   label: string;
-  items: string[];
+  path: string;
 }
 
-function DropDown({ label, items}: Props) {
+interface Props {
+  label: string;
+  items: DropDownItem[];
+  onSelect: (item: DropDownItem) => void;
+}
 
-    const [open, setOpen] = useState(false);
+function DropDown({ label, items, onSelect }: Props) {
+  const [open, setOpen] = useState(false);
+  const handleItemClick = (item: DropDownItem) => {
+    onSelect(item);
+    setOpen(false);
+  };
 
   return (
-    <div className={"dropdown-center"}>
+    <div className="dropdown-center">
       <button
         className="btn btn-secondary dropdown-toggle w-100"
         type="button"
@@ -19,12 +28,17 @@ function DropDown({ label, items}: Props) {
       >
         {label}
       </button>
-      
-      <ul className={open? "dropdown-menu show w-100" : "dropdown-menu w-100"}>
+
+      <ul className={open ? "dropdown-menu show w-100" : "dropdown-menu w-100"}>
         {items.map((item, index) => (
-          <ul key={index} className={"ps-0"}>
-            <a className="dropdown-item" href = "#">{item}</a>
-          </ul>
+          <li key={index}>
+            <button
+              className="dropdown-item w-100 text-start"
+              onClick={() => handleItemClick(item)}
+            >
+              {item.label}
+            </button>
+          </li>
         ))}
       </ul>
     </div>
