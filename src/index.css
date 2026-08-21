@@ -1,0 +1,197 @@
+@import url("https://fonts.googleapis.com/css2?family=Bitcount+Single:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bitcount+Ink:wght@100..900&family=Yuyu&display=swap");
+body {
+    font-family: "Yuyu", sans-serif;
+    font-size: 30px;
+  }
+  
+  h1,
+  h2,
+h3 {
+    font-family: "Bitcount Single", serif;
+}
+.hero {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    color: #7b4a68;
+    font-family: Arial, sans-serif;
+    font-size: 54px;
+    line-height: 1;
+    transform: translateX(-50%);
+    animation: blink-arrow 1.3s ease-in-out infinite;
+    transition: opacity 200ms ease, visibility 200ms ease;
+  }
+
+  .scroll-indicator-hidden {
+    opacity: 0;
+    visibility: hidden;
+    animation: none;
+  }
+
+  @keyframes blink-arrow {
+    0%, 100% { opacity: 0.2; transform: translateX(-50%) translateY(0); }
+    50% { opacity: 1; transform: translateX(-50%) translateY(8px); }
+  }
+  
+  .about-me {
+    padding-bottom: 20px;
+  }
+
+  .content-panel {
+    width: min(900px, calc(100% - 40px));
+    margin: 0 auto 32px;
+    padding: 48px;
+    background: rgba(255, 255, 255, 0.68);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(105, 63, 44, 0.16);
+    backdrop-filter: blur(10px);
+  }
+
+  @media (max-width: 600px) {
+    .content-panel {
+      width: calc(100% - 24px);
+      padding: 28px 20px;
+      border-radius: 18px;
+    }
+  }
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+  padding: 0;
+}
+
+body {
+  background: #fff8ed;
+  color: #3f3028;
+}
+
+.site-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.site-content > footer {
+  margin-top: auto;
+}
+
+.section-navigation {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  z-index: 2;
+  display: flex;
+  gap: 10px;
+  padding: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 8px 24px rgba(105, 63, 44, 0.12);
+  backdrop-filter: blur(10px);
+  transform: translateX(-50%);
+}
+
+.section-navigation a {
+  padding: 8px 15px;
+  border-radius: 999px;
+  color: #633c55;
+  font-family: "Bitcount Single", serif;
+  font-size: 16px;
+  text-decoration: none;
+  transition: background 160ms ease, color 160ms ease;
+}
+
+.section-navigation a:hover {
+  background: #7b4a68;
+  color: white;
+}
+
+#about,
+#projects,
+#experience {
+  scroll-margin-top: 100px;
+}
+
+.main-navigation {
+  margin: 0;
+  padding: 0;
+}
+
+.particle-network-animation {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 20% 15%, rgba(255, 203, 149, 0.62), transparent 34%),
+    radial-gradient(circle at 85% 80%, rgba(245, 171, 123, 0.48), transparent 35%),
+    linear-gradient(135deg, #fffaf2 0%, #fff1df 50%, #f9e1c5 100%);
+  transition: background 900ms ease;
+}
+
+.eeg-display {
+  position: absolute;
+  top: 50%;
+  left: 3vw;
+  z-index: 1;
+  width: min(43vw, 600px);
+  height: auto;
+  overflow: visible;
+  transform: translateY(-50%);
+}
+
+.background-about {
+  background:
+    radial-gradient(circle at 20% 15%, rgba(247, 178, 191, 0.66), transparent 34%),
+    radial-gradient(circle at 85% 80%, rgba(226, 146, 168, 0.45), transparent 35%),
+    linear-gradient(135deg, #fff8f4 0%, #fce9e8 52%, #eed4d8 100%);
+}
+
+.background-projects {
+  background:
+    radial-gradient(circle at 20% 15%, rgba(255, 210, 132, 0.68), transparent 34%),
+    radial-gradient(circle at 85% 80%, rgba(236, 163, 82, 0.5), transparent 35%),
+    linear-gradient(135deg, #fff9ef 0%, #ffedcf 52%, #f5d2a2 100%);
+}
+
+.background-experience {
+  background:
+    radial-gradient(circle at 20% 15%, rgba(207, 213, 149, 0.65), transparent 34%),
+    radial-gradient(circle at 85% 80%, rgba(169, 182, 112, 0.46), transparent 35%),
+    linear-gradient(135deg, #fbfaed 0%, #edf0d9 52%, #dce2bb 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eeg-display {
+    opacity: 0.7;
+  }
+
+}
+
+@media (max-width: 700px) {
+  .eeg-display {
+    top: 40%;
+    left: 5vw;
+    width: 62vw;
+  }
+}

@@ -8,23 +8,25 @@ interface DropDownItem {
 interface Props {
   label: string;
   items: DropDownItem[];
-  onSelect: (item: DropDownItem) => void;
+  onHover: (item: DropDownItem) => void;
 }
 
-function DropDown({ label, items, onSelect }: Props) {
+function DropDown({ label, items, onHover }: Props) {
   const [open, setOpen] = useState(false);
   const handleItemClick = (item: DropDownItem) => {
-    onSelect(item);
+    onHover(item);
     setOpen(false);
   };
 
   return (
-    <div className="dropdown-center">
+    <div
+      className="dropdown-center"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
       <button
         className="btn btn-secondary dropdown-toggle w-100"
         type="button"
-        data-bs-toggle="dropdown"
-        onClick={() => setOpen(!open)}
       >
         {label}
       </button>

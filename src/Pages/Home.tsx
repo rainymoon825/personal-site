@@ -1,39 +1,96 @@
-import Alert from "../components/Alert";
 import ListGroup from "../components/ListGroup";
 import "../App.css";
-import Me from "../assets/Me.jpg";
-import Card from "../components/Card";
-import Layout from "../components/Layout";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 function Home() {
-  let items = ["New York", "San Fransisco", "Paris"];
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [hasScrolled, setHasScrolled] = useState(false);
+  const projects = ["Appointment Booker", "Washroom Finder", "Burrower"];
+  const experience = ["Weekly Cello Instructor", "Math and Science Tutor"];
 
-  const handleSelectItem = (item: String, instance: Number, index: Number) => {
-    console.log(item, instance, index);
+  const handleProjectSelect = (item: string) => {
+    const routes: Record<string, string> = {
+        "Appointment Booker": "/projects/appointment-booker",
+        "Washroom Finder": "/projects/washroom-finder",
+        "Burrower": "/projects/burrower",
+      };
+      navigate(routes[item]);
   };
+
+  const handleExperienceSelect = (item: string) => {
+    const routes: Record<string, string> = {
+      "Weekly Cello Instructor": "/experience/instructor",
+      "Math and Science Tutor": "/experience/tutor"
+    };
+    navigate(routes[item]);
+  };
+
+  useEffect(() => {
+    const checkScrollPosition = () => setHasScrolled(window.scrollY > 30);
+    window.addEventListener("scroll", checkScrollPosition, { passive: true });
+    checkScrollPosition();
+
+    return () => window.removeEventListener("scroll", checkScrollPosition);
+  }, []);
+
+  useEffect(() => {
+    const sectionId = location.hash.slice(1);
+    if (!sectionId) return;
+
+    const scrollToSection = window.setTimeout(() => {
+      document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
+    }, 0);
+
+    return () => window.clearTimeout(scrollToSection);
+  }, [location.hash]);
 
   return (
     <>
-      <Card
-        title="About Me"
-        bodyText="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
-        imgSrc={Me}
-      />
+      <section className="hero">
+        <h1 style={{ fontSize: "60px" }}>
+          Hi! I'm <span style={{ color: "purple"}}>Benjamin Koo</span>!
+        </h1>
+        <span
+          className={`scroll-indicator ${hasScrolled ? "scroll-indicator-hidden" : ""}`}
+          aria-hidden="true"
+        >
+          ⌄
+        </span>
+      </section>
+      <main>
+        <section className="content-panel about-me" id="about">
+          <h1>About Me</h1>
+          <p>
+            I am currently in my third year at <span style={{ color: "blue"}}>UBC</span>, studying <span style={{ color: "pink"}}>Cognitive Systems </span>
+            with a focus on computational intelligence and design. I am
+            particularly interested in human-computer interactions, from everyday
+            GUIs to emerging brain-computer interfaces.
+          </p>
+          <p>
+            Outside of school and projects, I play the cello, work out, and watch
+            movies.
+          </p>
+        </section>
 
-      <ListGroup
-        items={items}
-        heading={"Cities"}
-        instance={1}
-        onSelectItem={handleSelectItem}
-      />
-      <ListGroup
-        items={items}
-        heading={"Bad cities"}
-        instance={2}
-        onSelectItem={handleSelectItem}
-      />
-      <Alert children={["Hello", <span> World </span>]} />
+        <section className="content-panel" id="projects">
+          <ListGroup
+            items={projects}
+            heading={"Projects"}
+            instance={1}
+            onSelectItem={handleProjectSelect}
+          />
+        </section>
+        <section className="content-panel" id="experience">
+          <ListGroup
+            items={experience}
+            heading={"Experience"}
+            instance={2}
+            onSelectItem={handleExperienceSelect}
+          />
+        </section>
+      </main>
     </>
   );
 }

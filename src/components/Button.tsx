@@ -2,13 +2,13 @@
 
 interface Props {
     children: string
-    onClick: () => void;
+    onHover: () => void;
 }
 
 
-const Button = ({children, onClick}: Props) => {
+const Button = ({children, onHover}: Props) => {
   return (
-    <button className='btn btn-primary' onClick = {onClick} >{children}</button>
+    <button className='btn btn-primary' onClick = {onHover} >{children}</button>
   )
 }
 
